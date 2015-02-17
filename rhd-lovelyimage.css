@@ -2,9 +2,17 @@
 	LovelyImage by Roundhouse Designs
    ========================================================================== */
 
-.rhd_lovelyimage_preview {
-	max-width: 90%;
-	height: auto;
-	display: block;
-	margin: 0 auto;
+.widget_rhd_lovelyimage {
+	width: 20%;
+	height: 100%;
+}
+
+.widget_rhd_lovelyimage .rhd_lovelyimage_container,
+.widget_rhd_lovelyimage .rhd_lovelyimage_container img {
+	width 100%;
+	min-height: 100%;
+}
+
+.widget_rhd_lovelyimage .rhd_lovelyimage_container {
+	overflow: hidden;
 }

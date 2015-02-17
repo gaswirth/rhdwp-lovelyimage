@@ -57,11 +57,10 @@ class RHD_LovelyImage extends WP_Widget {
 			<img src="<?php echo $imgUrl; ?>" alt="<?php echo $caption; ?>">
 		</figure>
 
-
-		echo $after_widget;
+		<?php echo $after_widget;
 	}
 
-	public function form($instance) {
+	public function form( $instance ) {
 		// outputs the options form on admin
 		$args['title'] = esc_attr( $instance['title'] );
 		$args['link'] = esc_url( $instance['link'] );
