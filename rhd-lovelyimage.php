@@ -81,7 +81,7 @@ class RHD_LovelyImage extends WP_Widget {
 	}
 }
 // register Foo_Widget widget
-function register_rhd_social_icons_widget() {
-    register_widget( 'RHD_Social_Icons' );
+function register_rhd_lovelyimage_widget() {
+    register_widget( 'RHD_LovelyImage' );
 }
-add_action( 'widgets_init', 'register_rhd_social_icons_widget' );
+add_action( 'widgets_init', 'register_rhd_lovelyimage_widget' );
