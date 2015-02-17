@@ -1,0 +1,10 @@
+/* ==========================================================================
+	LovelyImage by Roundhouse Designs
+   ========================================================================== */
+
+.rhd_lovelyimage_preview {
+	max-width: 90%;
+	height: auto;
+	display: block;
+	margin: 0 auto;
+}

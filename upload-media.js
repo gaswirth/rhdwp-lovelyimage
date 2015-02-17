@@ -1,21 +1,37 @@
-(function($) {
-    $(document).on("click", ".upload_image_button", function() {
+jQuery(document).ready(function($){
+	var custom_uploader,
+		inputElem,
+		imgPreview;
 
-        $.data(document.body, 'prevElement', $(this).prev() );
+	$(".upload_image_button").click(function(e) {
+		inputElem = $(this).prev(".image_input");
+		imgPreview = $(this).next(".rhd_lovelyimage_preview");
+		e.preventDefault();
 
-        window.send_to_editor = function(html) {
-            var imgurl = $('img',html).attr('src');
-            var inputText = $.data(document.body, 'prevElement');
+		// If the uploader object has already been created, reopen the dialog
+		if (custom_uploader) {
+			custom_uploader.open();
+			return;
+		}
 
-            if(inputText !== undefined && inputText !== '')
-            {
-                inputText.val(imgurl);
-            }
+		// Extend the wp.media object
+		custom_uploader = wp.media.frames.file_frame = wp.media({
+			title: 'Choose Image',
+			button: {
+				text: 'Choose Image'
+			},
+			multiple: false
+		});
 
-            tb_remove();
-        };
+		// When a file is selected, grab the URL and set it as the text field's value
+		custom_uploader.on('select', function() {
+			attachment = custom_uploader.state().get('selection').first().toJSON();
+			inputElem.val(attachment.url);
+			imgPreview.attr("src", attachment.url);
+		});
 
-        tb_show('', 'media-upload.php?type=image&TB_iframe=true');
-        return false;
-    });
-})(jQuery);
+		// Open the uploader dialog
+		custom_uploader.open();
+
+	});
+});

@@ -17,23 +17,22 @@ class RHD_LovelyImage extends WP_Widget {
 			array( 'description' => __( 'A simple image widget with CSS-stylable captions and optional image linkage.', 'rhd' ), ) // Args
 		);
 		add_action( 'admin_enqueue_scripts', array( $this, 'upload_scripts' ) );
-		add_action( 'admin_enqueue_styles', array( $this, 'upload_styles' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'display_styles' ) );
 	}
 
 	/**
      * Upload the Javascripts for the media uploader
      */
     public function upload_scripts() {
-		wp_enqueue_script( 'media-upload' );
-		wp_enqueue_script( 'thickbox' );
+		wp_enqueue_media();
 		wp_enqueue_script( 'upload_media_widget', RHD_LI_DIR . 'upload-media.js', array( 'jquery' ) );
 	}
 
 	/**
      * Add the styles for the upload media box
 	 */
-	public function upload_styles() {
-		wp_enqueue_style('thickbox');
+	public function display_styles() {
+		wp_enqueue_style( 'rhd-lovelyimage', RHD_LI_DIR . 'rhd-lovelyimage.css' );
 	}
 
 
@@ -44,12 +43,20 @@ class RHD_LovelyImage extends WP_Widget {
 
 	public function widget($args, $instance) {
 		// outputs the content of the widget
-
 		extract( $args );
 
-		echo $before_widget;
+		$caption = apply_filters('widget_title', $instance['title']);
+		$imgUrl = $instance['image'];
+		$link = $instance['link'];
 
-		$title = apply_filters('widget_title', $instance['title']);
+		echo $before_widget;
+		?>
+
+		<figure class="rhd_lovelyimage_container">
+			<figcaption><?php echo $caption; ?></figcaption>
+			<img src="<?php echo $imgUrl; ?>" alt="<?php echo $caption; ?>">
+		</figure>
+
 
 		echo $after_widget;
 	}
@@ -58,8 +65,16 @@ class RHD_LovelyImage extends WP_Widget {
 		// outputs the options form on admin
 		$args['title'] = esc_attr( $instance['title'] );
 		$args['link'] = esc_url( $instance['link'] );
-		$args['image'] = esc_attr( $instance['image'] );
+		$args['image'] = esc_url( $instance['image'] );
 	?>
+		<style type="text/css">
+			.rhd_lovelyimage_preview {
+				max-width: 90%;
+				height: auto;
+				display: block;
+				margin: 1em auto;
+			}
+		</style>
 
 		<p>
 			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Widget Title/Caption:' ); ?></label>
@@ -73,8 +88,11 @@ class RHD_LovelyImage extends WP_Widget {
 
 		<p>
 			<label for="<?php echo $this->get_field_id( 'image' ); ?>"><?php _e( 'Image:' ); ?></label>
-			<input name="<?php echo $this->get_field_id( 'image' ); ?>" id="<?php echo $this->get_field_name( 'image' ); ?>" class="widefat" type="text" size="36"  value="<?php echo $args['image']; ?>" />
+			<input id="<?php echo $this->get_field_id( 'image' ); ?>" name="<?php echo $this->get_field_name( 'image' ); ?>" class="image_input widefat" type="text" value="<?php echo $args['image']; ?>" >
+
 			<input class="upload_image_button button button-primary" type="button" value="Upload Image" />
+
+			<img class="rhd_lovelyimage_preview" src="<?php echo $args['image']; ?>">
 		</p>
 
 <?php
