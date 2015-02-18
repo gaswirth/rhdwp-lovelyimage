@@ -4,7 +4,7 @@
  * Description: A simple image widget with CSS-stylable captions and optional image linkage.
  * Author: Roundhouse Designs
  * Author URI: http://roundhouse-designs.com
- * Version: 1.0
+ * Version: 1.0.1
 **/
 
 define( 'RHD_LI_DIR', plugin_dir_url(__FILE__) );
