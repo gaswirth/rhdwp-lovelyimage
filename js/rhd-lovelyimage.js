@@ -6,8 +6,13 @@
 			opacityBase = $cap.data("opacityBase"),
 			opacityHover = $cap.data("opacityHover");
 
+		if ( opacityBase === undefined || opacityBase === "" )
+			opacityBase = 0.5;
+		if ( opacityHover === undefined || opacityHover === "" )
+			opacityHover = 0.8;
+
 		var rgb = hexToRgb(hex);
-		var rgba_base = 'rgba(' + rgb.r + ',' + rgb.g + ',' + rgb.b + ',' + opacityStart + ')';
+		var rgba_base = 'rgba(' + rgb.r + ',' + rgb.g + ',' + rgb.b + ',' + opacityBase + ')';
 		var rgba_hover = 'rgba(' + rgb.r + ',' + rgb.g + ',' + rgb.b + ',' + opacityHover + ')';
 
 		// Set initial values, overriding default CSS
