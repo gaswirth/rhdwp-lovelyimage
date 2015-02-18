@@ -36,11 +36,11 @@ class RHD_LovelyImage extends WP_Widget {
 	}
 
 	public function display_scripts() {
-		wp_enqueue_script( 'rhd-lovelyimage', RHD_LI_DIR . 'js/rhd-lovelyimage.js' );
+		wp_enqueue_script( 'rhd-lovelyimage-js', RHD_LI_DIR . 'js/rhd-lovelyimage.js' );
 	}
 
 	public function display_styles() {
-		wp_enqueue_style( 'rhd-lovelyimage', RHD_LI_DIR . 'css/rhd-lovelyimage.css' );
+		wp_enqueue_style( 'rhd-lovelyimage-css', RHD_LI_DIR . 'css/rhd-lovelyimage.css' );
 	}
 
 
