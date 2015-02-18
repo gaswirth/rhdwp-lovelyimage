@@ -1,0 +1,14 @@
+/* ==========================================================================
+	LovelyImage Admin CSS
+   ========================================================================== */
+
+.rhd_lovelyimage_preview {
+	max-width: 90%;
+	height: auto;
+	display: block;
+	margin: 1em auto;
+}
+
+.upload_image_button {
+	margin-top: 1em;
+}

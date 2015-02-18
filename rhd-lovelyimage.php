@@ -16,21 +16,24 @@ class RHD_LovelyImage extends WP_Widget {
 			__('LovelyImage', 'rhd'), // Name
 			array( 'description' => __( 'A simple image widget with CSS-stylable captions and optional image linkage.', 'rhd' ), ) // Args
 		);
-		add_action( 'admin_enqueue_scripts', array( $this, 'upload_scripts' ) );
+
+		wp_enqueue_media();
+
+		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'admin_styles' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'display_styles' ) );
 	}
 
-	/**
-     * Upload the Javascripts for the media uploader
-     */
-    public function upload_scripts() {
-		wp_enqueue_media();
+    public function admin_scripts() {
+		// wp_enqueue_media();
 		wp_enqueue_script( 'upload_media_widget', RHD_LI_DIR . 'upload-media.js', array( 'jquery' ) );
+		wp_enqueue_script( 'preview-image', RHD_LI_DIR . 'preview-image.js', array( 'jquery' ) );
 	}
 
-	/**
-     * Add the styles for the upload media box
-	 */
+	public function admin_styles() {
+		wp_enqueue_style( 'rhd-lovelyimage-admin', RHD_LI_DIR . 'rhd-lovelyimage-admin.css' );
+	}
+
 	public function display_styles() {
 		wp_enqueue_style( 'rhd-lovelyimage', RHD_LI_DIR . 'rhd-lovelyimage.css' );
 	}
@@ -66,14 +69,6 @@ class RHD_LovelyImage extends WP_Widget {
 		$args['link'] = esc_url( $instance['link'] );
 		$args['image'] = esc_url( $instance['image'] );
 	?>
-		<style type="text/css">
-			.rhd_lovelyimage_preview {
-				max-width: 90%;
-				height: auto;
-				display: block;
-				margin: 1em auto;
-			}
-		</style>
 
 		<p>
 			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Widget Title/Caption:' ); ?></label>
@@ -89,7 +84,7 @@ class RHD_LovelyImage extends WP_Widget {
 			<label for="<?php echo $this->get_field_id( 'image' ); ?>"><?php _e( 'Image:' ); ?></label>
 			<input id="<?php echo $this->get_field_id( 'image' ); ?>" name="<?php echo $this->get_field_name( 'image' ); ?>" class="image_input widefat" type="text" value="<?php echo $args['image']; ?>" >
 
-			<input class="upload_image_button button button-primary" type="button" value="Upload Image" />
+			<input class="upload_image_button button button-primary" type="button" value="Choose or Upload Image" />
 
 			<img class="rhd_lovelyimage_preview" src="<?php echo $args['image']; ?>">
 		</p>

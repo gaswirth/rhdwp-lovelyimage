@@ -1,11 +1,9 @@
 jQuery(document).ready(function($){
-	var custom_uploader,
-		inputElem,
-		imgPreview;
+	$(document).on("click", ".upload_image_button", function(e) {
+		var custom_uploader;
 
-	$(".upload_image_button").click(function(e) {
-		inputElem = $(this).prev(".image_input");
-		imgPreview = $(this).next(".rhd_lovelyimage_preview");
+		var inputElem = $(this).prev(".image_input");
+		var preview = $(this).next(".rhd_lovelyimage_preview");
 		e.preventDefault();
 
 		// If the uploader object has already been created, reopen the dialog
@@ -27,11 +25,11 @@ jQuery(document).ready(function($){
 		custom_uploader.on('select', function() {
 			attachment = custom_uploader.state().get('selection').first().toJSON();
 			inputElem.val(attachment.url);
-			imgPreview.attr("src", attachment.url);
+			preview.attr("src", attachment.url);
+			preview.show();
 		});
 
 		// Open the uploader dialog
 		custom_uploader.open();
-
 	});
 });
