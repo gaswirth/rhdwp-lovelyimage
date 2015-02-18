@@ -24,12 +24,14 @@
 	top: 0;
 	left: 0;
 	display: block;
-	background: rgba(255,255,255,0.75);
 	z-index: 999;
 	text-align: center;
 	padding: 0.5em 0;
 	font-size: 1em;
 	letter-spacing: 0.1em;
+
+	/* Default, overridden by JS */
+	background: rgba(255,255,255,0.5);
 }
 
 .widget_rhd_lovelyimage .rhd_lovelyimage_container {
