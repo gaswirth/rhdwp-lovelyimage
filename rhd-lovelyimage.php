@@ -21,6 +21,7 @@ class RHD_LovelyImage extends WP_Widget {
 
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_styles' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'display_scripts' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'display_styles' ) );
 	}
 
@@ -32,6 +33,10 @@ class RHD_LovelyImage extends WP_Widget {
 
 	public function admin_styles() {
 		wp_enqueue_style( 'rhd-lovelyimage-admin', RHD_LI_DIR . 'css/rhd-lovelyimage-admin.css' );
+	}
+
+	public function display_scripts() {
+		wp_enqueue_style( 'rhd-lovelyimage', RHD_LI_DIR . 'js/rhd-lovelyimage.js' );
 	}
 
 	public function display_styles() {
@@ -49,15 +54,18 @@ class RHD_LovelyImage extends WP_Widget {
 		extract( $args );
 
 		$caption = apply_filters('widget_title', $instance['title']);
-		$imgUrl = $instance['image'];
 		$link = $instance['link'];
+		$img_url = $instance['image'];
+		$cap_color = $instance['cap_color'];
+		$cap_opacity[0] = $instance['opacity_base'];
+		$cap_opacity[1] = $instance['opacity_hover'];
 
 		echo $before_widget;
 		?>
 
 		<figure class="rhd_lovelyimage_container">
 			<figcaption><?php echo $caption; ?></figcaption>
-			<img src="<?php echo $imgUrl; ?>" alt="<?php echo $caption; ?>">
+			<img src="<?php echo $img_url; ?>" alt="<?php echo $caption; ?>">
 		</figure>
 
 		<?php echo $after_widget;
@@ -68,11 +76,28 @@ class RHD_LovelyImage extends WP_Widget {
 		$args['title'] = esc_attr( $instance['title'] );
 		$args['link'] = esc_url( $instance['link'] );
 		$args['image'] = esc_url( $instance['image'] );
+		$args['cap_color'] = sanitize_hex_color( $instance['cap_color'] );
+		$args['opacity_base'] = esc_attr( $instance['opacity_base'] );
+		$args['opacity_hover'] = esc_attr( $instance['opacity_hover'] );
 	?>
 
+		<h3><?php _e( 'Caption Options:' ); ?></h3>
 		<p>
 			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Widget Title/Caption:' ); ?></label>
 			<input id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo $args['title']; ?>" >
+		</p>
+
+		<p>
+			<label for="<?php echo $this->get_field_id( 'cap_color' ); ?>"><?php _e( 'Background Hex Color (include "#"):' ); ?></label>
+			<input id="<?php echo $this->get_field_id( 'cap_color' ); ?>" name="<?php echo $this->get_field_name( 'cap_color' ); ?>" type="text" value="<?php echo $args['cap_color']; ?>" placeholder="#ffffff">
+		</p>
+
+		<p>
+			<label for="<?php echo $this->get_field_id( 'opacity_base' ); ?>"><?php _e( 'Background Base Opacity (0-1):' ); ?></label>
+			<input id="<?php echo $this->get_field_id( 'opacity_base' ); ?>" name="<?php echo $this->get_field_name( 'opacity_base' ); ?>" type="number" value="<?php echo $args['opacity_base']; ?>" placeholder="0.5">
+
+			<label for="<?php echo $this->get_field_id( 'opacity_hover' ); ?>"><?php _e( 'Background Hover Opacity (0-1):' ); ?></label>
+			<input id="<?php echo $this->get_field_id( 'opacity_hover' ); ?>" name="<?php echo $this->get_field_name( 'opacity_hover' ); ?>" type="text" value="<?php echo $args['opacity_hover']; ?>" placeholder="0.8">
 		</p>
 
 		<p>
