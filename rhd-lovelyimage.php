@@ -63,10 +63,12 @@ class RHD_LovelyImage extends WP_Widget {
 		echo $before_widget;
 		?>
 
+		<?php if ( $link ) echo "<a href=\"{$link}\" target=\"_blank\">\n"; ?>
 		<figure class="rhd_lovelyimage_container">
 			<figcaption data-bg-color="<?php echo $cap_color; ?>" data-opacity-base="<?php echo $cap_opacity[0]; ?>" data-opacity-hover="<?php echo $cap_opacity[1]; ?>"><?php echo $caption; ?></figcaption>
 			<img src="<?php echo $img_url; ?>" alt="<?php echo $caption; ?>">
 		</figure>
+		<?php if ( $link ) echo "</a>\n"; ?>
 
 		<?php echo $after_widget;
 	}
