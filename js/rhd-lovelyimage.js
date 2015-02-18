@@ -24,12 +24,12 @@ jQuery(document).ready(function($){
 			function(){
 				$cap.stop().animate({
 					backgroundColor: rgba_hover
-				});
+				}, 'fast');
 			},
 			function(){
 				$cap.stop().animate({
 					backgroundColor: rgba_base
-				});
+				}, 'fast');
 			}
 		);
 	});
