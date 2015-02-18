@@ -4,7 +4,7 @@
  * Description: A simple image widget with CSS-stylable captions and optional image linkage.
  * Author: Roundhouse Designs
  * Author URI: http://roundhouse-designs.com
- * Version: 0.1
+ * Version: 1.0
 **/
 
 define( 'RHD_LI_DIR', plugin_dir_url(__FILE__) );
@@ -26,16 +26,16 @@ class RHD_LovelyImage extends WP_Widget {
 
     public function admin_scripts() {
 		// wp_enqueue_media();
-		wp_enqueue_script( 'upload_media_widget', RHD_LI_DIR . 'upload-media.js', array( 'jquery' ) );
-		wp_enqueue_script( 'preview-image', RHD_LI_DIR . 'preview-image.js', array( 'jquery' ) );
+		wp_enqueue_script( 'upload_media_widget', RHD_LI_DIR . 'js/upload-media.js', array( 'jquery' ) );
+		wp_enqueue_script( 'preview-image', RHD_LI_DIR . 'js/preview-image.js', array( 'jquery' ) );
 	}
 
 	public function admin_styles() {
-		wp_enqueue_style( 'rhd-lovelyimage-admin', RHD_LI_DIR . 'rhd-lovelyimage-admin.css' );
+		wp_enqueue_style( 'rhd-lovelyimage-admin', RHD_LI_DIR . 'css/rhd-lovelyimage-admin.css' );
 	}
 
 	public function display_styles() {
-		wp_enqueue_style( 'rhd-lovelyimage', RHD_LI_DIR . 'rhd-lovelyimage.css' );
+		wp_enqueue_style( 'rhd-lovelyimage', RHD_LI_DIR . 'css/rhd-lovelyimage.css' );
 	}
 
 
