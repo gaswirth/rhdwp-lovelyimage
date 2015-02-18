@@ -1,4 +1,4 @@
-(function($){
+jQuery(document).ready(function($){
 	$(".rhd_lovelyimage_container").each(function(){
 		var $box = $(this),
 			$cap = $box.children("figcaption"),
@@ -6,8 +6,10 @@
 			opacityBase = $cap.data("opacityBase"),
 			opacityHover = $cap.data("opacityHover");
 
+		if ( hex === undefined || hex === "" )
+			hex = "#fff";
 		if ( opacityBase === undefined || opacityBase === "" )
-			opacityBase = 0.5;
+			opacityBase = 0.6;
 		if ( opacityHover === undefined || opacityHover === "" )
 			opacityHover = 0.8;
 
@@ -31,7 +33,7 @@
 			}
 		);
 	});
-})(jQuery);
+});
 
 
 /* ==========================================================================
