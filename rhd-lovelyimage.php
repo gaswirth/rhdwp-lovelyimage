@@ -57,16 +57,18 @@ class RHD_LovelyImage extends WP_Widget {
 		$caption = apply_filters('widget_title', $instance['title']);
 		$link = $instance['link'];
 		$img_url = $instance['image'];
-		$cap_color = ( $instance['cap_color'] ) ? $instance['cap_color'] : '#fff';
+		$cap_color = ( $instance['cap_color'] !== '' ) ? $instance['cap_color'] : '#fff';
 		$cap_opacity[0] = ( $instance['opacity_base'] ) ? $instance['opacity_base'] : 0.6;
 		$cap_opacity[1] = ( $instance['opacity_hover'] ) ? $instance['opacity_hover'] : 0.85;
+
+		$cap_data = "data-bg-color=\"{$cap_color}\" data-opacity-base=\"{$cap_opacity[0]}\" data-opacity-hover=\"{$cap_opacity[1]}\"";
 
 		echo $before_widget;
 		?>
 
 		<?php if ( $link ) echo "<a href=\"{$link}\" target=\"_blank\">\n"; ?>
 		<figure class="rhd_lovelyimage_container">
-			<figcaption data-bg-color="<?php echo $cap_color; ?>" data-opacity-base="<?php echo $cap_opacity[0]; ?>" data-opacity-hover="<?php echo $cap_opacity[1]; ?>"><?php echo $caption; ?></figcaption>
+			<figcaption <?php echo $cap_data; ?>><?php echo $caption; ?></figcaption>
 			<img src="<?php echo $img_url; ?>" alt="<?php echo $caption; ?>">
 		</figure>
 		<?php if ( $link ) echo "</a>\n"; ?>
