@@ -57,9 +57,9 @@ class RHD_LovelyImage extends WP_Widget {
 		$caption = apply_filters('widget_title', $instance['title']);
 		$link = $instance['link'];
 		$img_url = $instance['image'];
-		$cap_color = $instance['cap_color'];
-		$cap_opacity[0] = $instance['opacity_base'];
-		$cap_opacity[1] = $instance['opacity_hover'];
+		$cap_color = ( $instance['cap_color'] ) ? $instance['cap_color'] : '#fff';
+		$cap_opacity[0] = ( $instance['opacity_base'] ) ? $instance['opacity_base'] : 0.6;
+		$cap_opacity[1] = ( $instance['opacity_hover'] ) ? $instance['opacity_hover'] : 0.85;
 
 		echo $before_widget;
 		?>
