@@ -1,6 +1,6 @@
 jQuery(document).ready(function($){
 	$(".rhd_lovelyimage_container").each(function(){
-		if ( $(this).data("animate") !== false ) {
+		if ( $(this).data("animate") === "yes" ) {
 			var $box = $(this),
 				$cap = $box.children("figcaption"),
 				hex = $cap.data("bgColor"),
