@@ -57,11 +57,12 @@ class RHD_LovelyImage extends WP_Widget {
 		$caption = apply_filters('widget_title', $instance['title']);
 		$link = $instance['link'];
 		$img_url = $instance['image'];
+		$animate = $instance['animate'];
 		$cap_color = ( $instance['cap_color'] !== '' ) ? $instance['cap_color'] : '#fff';
 		$cap_opacity[0] = ( $instance['opacity_base'] ) ? $instance['opacity_base'] : 0.6;
 		$cap_opacity[1] = ( $instance['opacity_hover'] ) ? $instance['opacity_hover'] : 0.85;
 
-		$cap_data = "data-bg-color=\"{$cap_color}\" data-opacity-base=\"{$cap_opacity[0]}\" data-opacity-hover=\"{$cap_opacity[1]}\"";
+		$cap_data = "data-animate=\"{$animate}\" data-bg-color=\"{$cap_color}\" data-opacity-base=\"{$cap_opacity[0]}\" data-opacity-hover=\"{$cap_opacity[1]}\"";
 
 		echo $before_widget;
 		?>
@@ -81,6 +82,7 @@ class RHD_LovelyImage extends WP_Widget {
 		$args['title'] = esc_attr( $instance['title'] );
 		$args['link'] = esc_url( $instance['link'] );
 		$args['image'] = esc_url( $instance['image'] );
+		$args['animate'] = $instance['animate'];
 		$args['cap_color'] = esc_attr( $instance['cap_color'] );
 		$args['opacity_base'] = esc_attr( $instance['opacity_base'] );
 		$args['opacity_hover'] = esc_attr( $instance['opacity_hover'] );
@@ -91,6 +93,12 @@ class RHD_LovelyImage extends WP_Widget {
 			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Widget Title/Caption:' ); ?></label>
 			<input id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo $args['title']; ?>" >
 		</p>
+
+		<p>
+			<label for="<?php echo $this->get_field_id( 'animate' ); ?>"
+			<input id="<?php echo $this->get_field_id( 'animate' ); ?>" name="<?php echo $this->get_field_name( 'animate' ); ?>" type="checkbox" value="yes" <?php if( $args['animate'] === 'yes' ){ echo 'checked="checked"'; } ?> />
+		</p>
+
 		<p>
 			<label for="<?php echo $this->get_field_id( 'cap_color' ); ?>"><?php _e( 'Background Hex Color <em>(Include \'#\')</em>:' ); ?></label>
 			<input id="<?php echo $this->get_field_id( 'cap_color' ); ?>" name="<?php echo $this->get_field_name( 'cap_color' ); ?>" type="text" size="8" value="<?php echo $args['cap_color']; ?>" placeholder="#ffffff">
