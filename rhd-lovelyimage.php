@@ -71,7 +71,7 @@ class RHD_LovelyImage extends WP_Widget {
 			<figcaption <?php echo $cap_data; ?>><?php echo $caption; ?></figcaption>
 			<img src="<?php echo $img_url; ?>" alt="<?php echo $caption; ?>">
 		</figure>
-		<?php if ( $link ) echo "</a>\n"; ?>
+		<?php if ( $link ) echo "</a>"; ?>
 
 		<?php echo $after_widget;
 	}
