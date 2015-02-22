@@ -15,6 +15,8 @@
 
 .widget_rhd_lovelyimage .rhd_lovelyimage_container img {
 	position: relative;
+	display: block;
+	border: 1px solid green;
 }
 
 .widget_rhd_lovelyimage .rhd_lovelyimage_container figcaption {
