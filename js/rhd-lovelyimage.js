@@ -1,9 +1,10 @@
 jQuery(document).ready(function($){
 	$(".rhd_lovelyimage_container").each(function(){
-		if ( $(this).data("animate") === "yes" ) {
-			var $box = $(this),
-				$cap = $box.children("figcaption"),
-				hex = $cap.data("bgColor"),
+		var $box = $(this),
+			$cap = $box.children("figcaption");
+
+		if ( $cap.data("animate") === "yes" ) {
+			var	hex = $cap.data("bgColor"),
 				opacityBase = $cap.data("opacityBase"),
 				opacityHover = $cap.data("opacityHover");
 
