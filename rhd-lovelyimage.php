@@ -7,7 +7,45 @@
  * Version: 1.0.1
 **/
 
+
+/* ==========================================================================
+	Plugin Setup
+   ========================================================================== */
+
+
 define( 'RHD_LI_DIR', plugin_dir_url(__FILE__) );
+
+/**
+ * rhd_register_image_sizes function.
+ *
+ * @access public
+ * @return void
+ */
+function rhd_register_image_sizes() {
+	add_image_size( 'rhd_lovely_style_landscape', 230, 130, true );
+	add_image_size( 'rhd_lovely_style_square', 225, 225, true );
+}
+add_action( 'init', 'rhd_register_image_sizes' );
+
+
+/**
+ * rhd_get_image_id function.
+ *
+ * @access public
+ * @param mixed $url
+ * @return void
+ */
+function rhd_get_image_id( $url ) {
+	global $wpdb;
+	$attachment = $wpdb->get_col($wpdb->prepare("SELECT ID FROM $wpdb->posts WHERE guid='%s';", $url ));
+	return $attachment[0];
+}
+
+
+/* ==========================================================================
+	LovelyImage Widget
+   ========================================================================== */
+
 
 class RHD_LovelyImage extends WP_Widget {
 	function __construct() {
@@ -44,7 +82,6 @@ class RHD_LovelyImage extends WP_Widget {
 		wp_enqueue_style( 'rhd-lovelyimage-css', RHD_LI_DIR . 'css/rhd-lovelyimage.css' );
 	}
 
-
 	public function update($new_instance, $old_instance) {
 		// processes widget options to be saved
 		return $new_instance;
@@ -52,6 +89,7 @@ class RHD_LovelyImage extends WP_Widget {
 
 	public function widget($args, $instance) {
 		// outputs the content of the widget
+
 		extract( $args );
 
 		$caption = apply_filters('widget_title', $instance['title']);
@@ -61,16 +99,21 @@ class RHD_LovelyImage extends WP_Widget {
 		$cap_color = ( $instance['cap_color'] !== '' ) ? $instance['cap_color'] : '#fff';
 		$cap_opacity[0] = ( $instance['opacity_base'] ) ? $instance['opacity_base'] : 0.6;
 		$cap_opacity[1] = ( $instance['opacity_hover'] ) ? $instance['opacity_hover'] : 0.85;
+		$style = $instance['style'];
 
-		$cap_data = "data-animate=\"{$animate}\" data-bg-color=\"{$cap_color}\" data-opacity-base=\"{$cap_opacity[0]}\" data-opacity-hover=\"{$cap_opacity[1]}\"";
+		$image_id = rhd_get_image_id( $args['image'] );
+		$image_thumb = wp_get_attachment_image_src( $image_id, $args['style'] );
+
+		$caption_class = ( $instance['style'] == 'landscape' || empty( $instance['style'] ) ) ? 'caption-top' : 'caption-bottom';
+		$caption_data = "data-animate=\"{$animate}\" data-bg-color=\"{$cap_color}\" data-opacity-base=\"{$cap_opacity[0]}\" data-opacity-hover=\"{$cap_opacity[1]}\"";
 
 		echo $before_widget;
 		?>
 
 		<?php if ( $link ) echo "<a href=\"{$link}\" target=\"_blank\">\n"; ?>
 		<figure class="rhd_lovelyimage_container">
-			<figcaption <?php echo $cap_data; ?>><?php echo $caption; ?></figcaption>
-			<img src="<?php echo $img_url; ?>" alt="<?php echo $caption; ?>">
+			<figcaption class="<?php echo $caption_class; ?>" <?php echo $caption_data; ?>><?php echo $caption; ?></figcaption>
+			<img class="<?php echo $style; ?>" src="<?php echo $img_url; ?>" alt="<?php echo $caption; ?>">
 		</figure>
 		<?php if ( $link ) echo "</a>"; ?>
 
@@ -86,6 +129,7 @@ class RHD_LovelyImage extends WP_Widget {
 		$args['cap_color'] = esc_attr( $instance['cap_color'] );
 		$args['opacity_base'] = esc_attr( $instance['opacity_base'] );
 		$args['opacity_hover'] = esc_attr( $instance['opacity_hover'] );
+		$args['style'] = esc_attr( $instance['style'] );
 	?>
 
 		<h3><?php _e( 'Caption Options:' ); ?></h3>
@@ -96,7 +140,7 @@ class RHD_LovelyImage extends WP_Widget {
 
 		<p>
 			<label for="<?php echo $this->get_field_id( 'animate' ); ?>"><?php _e( 'Animate on hover?' ); ?></label>
-			<input id="<?php echo $this->get_field_id( 'animate' ); ?>" name="<?php echo $this->get_field_name( 'animate' ); ?>" type="checkbox" value="yes" <?php if( $args['animate'] === 'yes' ){ echo 'checked="checked"'; } ?> />
+			<input id="<?php echo $this->get_field_id( 'animate' ); ?>" name="<?php echo $this->get_field_name( 'animate' ); ?>" type="checkbox" value="yes" <?php if( $args['animate'] === 'yes' || empty( $args['animate'] ) ){ echo 'checked="checked"'; } ?> />
 		</p>
 
 		<p>
@@ -112,7 +156,18 @@ class RHD_LovelyImage extends WP_Widget {
 			<input id="<?php echo $this->get_field_id( 'opacity_hover' ); ?>" name="<?php echo $this->get_field_name( 'opacity_hover' ); ?>" type="number" size="5" min="0" max="1" step="any" value="<?php echo $args['opacity_hover']; ?>" placeholder="0.85">
 		</p>
 
-		<h3><?php _e( 'Image Options:' ); ?></h3>
+		<h3><?php _e( 'Display Options:' ); ?></h3>
+		<p>
+			<p><?php _e( 'Image Style:' ); ?></p>
+			<label for="<?php echo $this->get_field_id( 'style_landscape' ); ?>">
+				<?php _e( 'Landscape (Caption: top)' ); ?>
+				<input id="<?php echo $this->get_field_id( 'style_landscape' ); ?>" class="rhd_li_style_landscape" name="<?php echo $this->get_field_name( 'style' ); ?>" type="radio" value="rhd_lovely_style_landscape" <?php if( $args['style'] != 'rhd_lovely_style_square' || empty( $args['style'] ) ){ echo 'checked="checked"'; } ?> />
+			</label>
+			<label for="<?php echo $this->get_field_id( 'style_square' ); ?>">
+				<?php _e( 'Square (Caption: bottom):'); ?>
+				<input id="<?php echo $this->get_field_id( 'style_square' ); ?>" class="rhd_li_style_square" name="<?php echo $this->get_field_name( 'style' ); ?>" type="radio" value="rhd_lovely_style_square" <?php if( $args['style'] == 'rhd_lovely_style_square' ){ echo 'checked="checked"'; } ?> />
+			</label>
+		</p>
 		<p>
 			<label for="<?php echo $this->get_field_id( 'link' ); ?>"><?php _e( 'Image Link URL:' ); ?></label>
 			<input id="<?php echo $this->get_field_id( 'link' ); ?>" name="<?php echo $this->get_field_name( 'link' ); ?>" type="text" value="<?php echo $args['link']; ?>" >

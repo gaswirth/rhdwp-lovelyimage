@@ -3,8 +3,8 @@
    ========================================================================== */
 
 .widget_rhd_lovelyimage {
-	width: 20%;
-	height: 100%;
+	max-width 100%;
+	overflow: hidden;
 }
 
 .widget_rhd_lovelyimage .rhd_lovelyimage_container,
@@ -20,7 +20,6 @@
 .widget_rhd_lovelyimage .rhd_lovelyimage_container figcaption {
 	width: 100%;
 	position: absolute;
-	top: 0;
 	left: 0;
 	display: block;
 	z-index: 999;
@@ -31,6 +30,14 @@
 
 	/* Default, overridden by JS */
 	background: rgba(255,255,255,0.5);
+}
+
+.widget_rhd_lovelyimage .rhd_lovelyimage_container .landscape {
+	top: 0;
+}
+
+.widget_rhd_lovelyimage .rhd_lovelyimage_container .square {
+	bottom: 25%;
 }
 
 .widget_rhd_lovelyimage .rhd_lovelyimage_container {

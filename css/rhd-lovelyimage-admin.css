@@ -4,6 +4,7 @@
 
 .rhd_lovelyimage_preview {
 	max-width: 90%;
+	max-height: 300px;
 	height: auto;
 	display: block;
 	margin: 1em auto;
