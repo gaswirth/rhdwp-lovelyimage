@@ -22,8 +22,8 @@ define( 'RHD_LI_DIR', plugin_dir_url(__FILE__) );
  * @return void
  */
 function rhd_register_image_sizes() {
-	add_image_size( 'rhd_lovely_style_landscape', 230, 130, true );
-	add_image_size( 'rhd_lovely_style_square', 225, 225, true );
+	add_image_size( 'lovelyimage-landscape', 230, 130, true );
+	add_image_size( 'lovelyimage-square', 225, 225, true );
 }
 add_action( 'init', 'rhd_register_image_sizes' );
 
@@ -99,12 +99,14 @@ class RHD_LovelyImage extends WP_Widget {
 		$cap_color = ( $instance['cap_color'] !== '' ) ? $instance['cap_color'] : '#fff';
 		$cap_opacity[0] = ( $instance['opacity_base'] ) ? $instance['opacity_base'] : 0.6;
 		$cap_opacity[1] = ( $instance['opacity_hover'] ) ? $instance['opacity_hover'] : 0.85;
-		$style = $instance['style'];
+		$style = ( stripos( strtolower( $instance['style'] ), 'landscape' ) ) ? 'landscape' : 'square';
 
-		$image_id = rhd_get_image_id( $args['image'] );
-		$image_thumb = wp_get_attachment_image_src( $image_id, $args['style'] );
+		$image_id = rhd_get_image_id( $img_url );
+		$image = wp_get_attachment_image( $image_id, 'lovelyimage-' . strtolower( $style ), false, array( 'class' => "attachment-lovelyimage-{$style} rhd_lovelyimage_thumb" ) );
 
-		$caption_class = ( $instance['style'] == 'landscape' || empty( $instance['style'] ) ) ? 'caption-top' : 'caption-bottom';
+		//$image_thumb = wp_get_attachment_image_src( $image_id, $style );
+
+		$caption_class = ( $style == 'landscape' || empty( $style ) ) ? 'caption-top' : 'caption-bottom';
 		$caption_data = "data-animate=\"{$animate}\" data-bg-color=\"{$cap_color}\" data-opacity-base=\"{$cap_opacity[0]}\" data-opacity-hover=\"{$cap_opacity[1]}\"";
 
 		echo $before_widget;
@@ -112,8 +114,8 @@ class RHD_LovelyImage extends WP_Widget {
 
 		<?php if ( $link ) echo "<a href=\"{$link}\" target=\"_blank\">\n"; ?>
 		<figure class="rhd_lovelyimage_container">
-			<figcaption class="<?php echo $caption_class; ?>" <?php echo $caption_data; ?>><?php echo $caption; ?></figcaption>
-			<img class="<?php echo $style; ?>" src="<?php echo $img_url; ?>" alt="<?php echo $caption; ?>">
+			<figcaption class="rhd_lovelyimage_caption <?php echo $caption_class; ?>" <?php echo $caption_data; ?>><?php echo $caption; ?></figcaption>
+			<?php print_r($image); ?>
 		</figure>
 		<?php if ( $link ) echo "</a>"; ?>
 

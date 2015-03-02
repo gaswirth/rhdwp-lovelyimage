@@ -3,21 +3,34 @@
    ========================================================================== */
 
 .widget_rhd_lovelyimage {
-	max-width 100%;
 	overflow: hidden;
 }
 
-.widget_rhd_lovelyimage .rhd_lovelyimage_container,
-.widget_rhd_lovelyimage .rhd_lovelyimage_container img {
-	height: 100%;
+.rhd_lovelyimage_container img {
 	min-width: 100%;
-}
-
-.widget_rhd_lovelyimage .rhd_lovelyimage_container img {
+	min-height: 100%;
 	position: relative;
 }
 
-.widget_rhd_lovelyimage .rhd_lovelyimage_container figcaption {
+.rhd_lovelyimage_container .square {
+	max-width: 230px;
+}
+
+.rhd_lovelyimage_container .landscape {
+	max-width: 225px;
+}
+
+.rhd_lovelyimage_container {
+	overflow: hidden;
+	margin: 0;
+	position: relative;
+}
+
+.rhd_lovelyimage_preview {
+	display: none;
+}
+
+.rhd_lovelyimage_caption {
 	width: 100%;
 	position: absolute;
 	left: 0;
@@ -32,20 +45,10 @@
 	background: rgba(255,255,255,0.5);
 }
 
-.widget_rhd_lovelyimage .rhd_lovelyimage_container .landscape {
+.rhd_lovelyimage_caption.caption-top {
 	top: 0;
 }
 
-.widget_rhd_lovelyimage .rhd_lovelyimage_container .square {
+.rhd_lovelyimage_caption.caption-bottom{
 	bottom: 25%;
-}
-
-.widget_rhd_lovelyimage .rhd_lovelyimage_container {
-	overflow: hidden;
-	margin: 0;
-	position: relative;
-}
-
-.rhd_lovelyimage_preview {
-	display: none;
 }
