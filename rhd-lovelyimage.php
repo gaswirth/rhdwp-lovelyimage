@@ -104,8 +104,6 @@ class RHD_LovelyImage extends WP_Widget {
 		$image_id = rhd_get_image_id( $img_url );
 		$image = wp_get_attachment_image( $image_id, 'lovelyimage-' . strtolower( $style ), false, array( 'class' => "attachment-lovelyimage-{$style} rhd_lovelyimage_thumb" ) );
 
-		//$image_thumb = wp_get_attachment_image_src( $image_id, $style );
-
 		$caption_class = ( $style == 'landscape' || empty( $style ) ) ? 'caption-top' : 'caption-bottom';
 		$caption_data = "data-animate=\"{$animate}\" data-bg-color=\"{$cap_color}\" data-opacity-base=\"{$cap_opacity[0]}\" data-opacity-hover=\"{$cap_opacity[1]}\"";
 
@@ -115,7 +113,7 @@ class RHD_LovelyImage extends WP_Widget {
 		<?php if ( $link ) echo "<a href=\"{$link}\" target=\"_blank\">\n"; ?>
 		<figure class="rhd_lovelyimage_container">
 			<figcaption class="rhd_lovelyimage_caption <?php echo $caption_class; ?>" <?php echo $caption_data; ?>><?php echo $caption; ?></figcaption>
-			<?php print_r($image); ?>
+			<?php echo $image; ?>
 		</figure>
 		<?php if ( $link ) echo "</a>"; ?>
 
