@@ -161,7 +161,7 @@ class RHD_LovelyImage extends WP_Widget {
 			<p><?php _e( 'Image Style:' ); ?></p>
 			<input id="<?php echo $this->get_field_id( 'style_landscape' ); ?>" class="rhd_li_style_landscape" name="<?php echo $this->get_field_name( 'style' ); ?>" type="radio" value="rhd_lovely_style_landscape" <?php if( $args['style'] != 'rhd_lovely_style_square' || empty( $args['style'] ) ){ echo 'checked="checked"'; } ?> />
 			<label for="<?php echo $this->get_field_id( 'style_landscape' ); ?>"><?php _e( 'Landscape (Caption: top)' ); ?></label>
-
+			<br />
 			<input id="<?php echo $this->get_field_id( 'style_square' ); ?>" class="rhd_li_style_square" name="<?php echo $this->get_field_name( 'style' ); ?>" type="radio" value="rhd_lovely_style_square" <?php if( $args['style'] == 'rhd_lovely_style_square' ){ echo 'checked="checked"'; } ?> />
 			<label for="<?php echo $this->get_field_id( 'style_square' ); ?>"><?php _e( 'Square (Caption: bottom)'); ?></label>
 		</p>
