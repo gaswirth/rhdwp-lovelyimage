@@ -99,7 +99,7 @@ class RHD_LovelyImage extends WP_Widget {
 		$cap_color = ( $instance['cap_color'] !== '' ) ? $instance['cap_color'] : '#fff';
 		$cap_opacity[0] = ( $instance['opacity_base'] ) ? $instance['opacity_base'] : 0.6;
 		$cap_opacity[1] = ( $instance['opacity_hover'] ) ? $instance['opacity_hover'] : 0.85;
-		$style = ( stripos( strtolower( $instance['style'] ), 'landscape' ) ) ? 'landscape' : 'square';
+		$style = ( $instance['style'] == 'rhd_lovely_style_landscape' ) ? 'landscape' : 'square';
 
 		$image_id = rhd_get_image_id( $img_url );
 		$image = wp_get_attachment_image( $image_id, 'lovelyimage-' . strtolower( $style ), false, array( 'class' => "attachment-lovelyimage-{$style} rhd_lovelyimage_thumb" ) );
