@@ -6,24 +6,15 @@
 	overflow: hidden;
 }
 
-.rhd_lovelyimage_container img {
-	height: auto;
-	min-width: 100%;
-	min-height: 100%;
+.rhd_lovelyimage_container {
+	width: 100%;
+	overflow: hidden;
+	margin: 0;
 	position: relative;
 }
 
-.rhd_lovelyimage_container .square {
-	max-width: 230px;
-}
-
-.rhd_lovelyimage_container .landscape {
-	max-width: 225px;
-}
-
-.rhd_lovelyimage_container {
-	overflow: hidden;
-	margin: 0;
+.rhd_lovelyimage_container img {
+	width: 100%;
 	position: relative;
 }
 
