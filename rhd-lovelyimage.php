@@ -127,7 +127,9 @@ class RHD_LovelyImage extends WP_Widget {
 
 		<?php if ( $link ) echo "<a href=\"{$link}\" target=\"_blank\">\n"; ?>
 		<figure class="rhd_lovelyimage_container <?php echo $style; ?>">
-			<figcaption class="rhd_lovelyimage_caption <?php echo $caption_class; ?>" <?php echo $caption_data; ?>><?php echo $caption; ?></figcaption>
+			<?php if ( $caption ) : ?>
+				<figcaption class="rhd_lovelyimage_caption <?php echo $caption_class; ?>" <?php echo $caption_data; ?>><?php echo $caption; ?></figcaption>
+			<?php endif; ?>
 			<?php echo $image; ?>
 		</figure>
 		<?php if ( $link ) echo "</a>"; ?>
