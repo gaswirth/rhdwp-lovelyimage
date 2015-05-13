@@ -82,12 +82,24 @@ class RHD_LovelyImage extends WP_Widget {
 		wp_enqueue_style( 'rhd-lovelyimage-css', RHD_LI_DIR . 'css/rhd-lovelyimage.css' );
 	}
 
-	public function update($new_instance, $old_instance) {
+	public function update( $new_instance, $old_instance ) {
 		// processes widget options to be saved
-		return $new_instance;
+		$instance = array();
+
+		$instance['title'] = ( $new_instance['title'] ) ? strip_tags( $new_instance['title'] ) : '';
+		$instance['caption'] = ( $new_instance['caption'] ) ? ( $new_instance['caption'] ) : '';
+		$instance['link'] = ( $new_instance['link'] ) ? esc_url_raw( $new_instance['link'] ) : '';
+		$instance['image'] = ( $new_instance['image'] ) ? esc_url_raw( $new_instance['image'] ) : '';
+		$instance['animate'] = $new_instance['animate'];
+		$instance['cap_color'] = ( $new_instance['cap_color'] ) ? strip_tags( $new_instance['cap_color'] ) : '';
+		$instance['opacity_base'] = ( $new_instance['opacity_base'] ) ? strip_tags( $instance['opacity_base'] ) : '';
+		$instance['opacity_hover'] = ( $new_instance['opacity_hover'] ) ? strip_tags( $instance['opacity_hover'] ) : '';
+		$instance['style'] = ( $new_instance['style'] ) ? strip_tags( $instance['style'] ) : '';
+
+		return $instance;
 	}
 
-	public function widget($args, $instance) {
+	public function widget( $args, $instance ) {
 		// outputs the content of the widget
 
 		extract( $args );
@@ -108,6 +120,8 @@ class RHD_LovelyImage extends WP_Widget {
 		$caption_data = "data-animate=\"{$animate}\" data-bg-color=\"{$cap_color}\" data-opacity-base=\"{$cap_opacity[0]}\" data-opacity-hover=\"{$cap_opacity[1]}\"";
 
 		echo $before_widget;
+
+		print_r($args);
 		?>
 
 		<?php if ( $link ) echo "<a href=\"{$link}\" target=\"_blank\">\n"; ?>
@@ -123,6 +137,7 @@ class RHD_LovelyImage extends WP_Widget {
 	public function form( $instance ) {
 		// outputs the options form on admin
 		$args['title'] = esc_attr( $instance['title'] );
+		$args['caption'] = esc_textarea( $instance['caption'] );
 		$args['link'] = esc_url( $instance['link'] );
 		$args['image'] = esc_url( $instance['image'] );
 		$args['animate'] = $instance['animate'];
@@ -132,10 +147,15 @@ class RHD_LovelyImage extends WP_Widget {
 		$args['style'] = esc_attr( $instance['style'] );
 	?>
 
+		<p>
+			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Widget Title:' ); ?></label>
+			<input id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo $args['title']; ?>" >
+		</p>
+
 		<h3><?php _e( 'Caption Options:' ); ?></h3>
 		<p>
-			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Widget Title/Caption:' ); ?></label>
-			<input id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo $args['title']; ?>" >
+			<label for="<?php echo $this->get_field_id( 'caption' ); ?>"><?php _e( 'Caption <em>(Optional)</em>:' ); ?></label>
+			<textarea id="<?php echo $this->get_field_id( 'caption' ); ?>" name="<?php echo $this->get_field_name( 'caption' ); ?>" value="<?php echo $args['caption']; ?>" ></textarea>
 		</p>
 
 		<p>
