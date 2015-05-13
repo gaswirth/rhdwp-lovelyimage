@@ -151,7 +151,7 @@ class RHD_LovelyImage extends WP_Widget {
 
 		<p>
 			<label for="<?php echo $this->get_field_id( 'animate' ); ?>"><?php _e( 'Animate on hover?' ); ?></label>
-			<input id="<?php echo $this->get_field_id( 'animate' ); ?>" name="<?php echo $this->get_field_name( 'animate' ); ?>" type="checkbox" value="yes" <?php if( $args['animate'] === 'yes' || empty( $args['animate'] ) ){ echo 'checked="checked"'; } ?> />
+			<input id="<?php echo $this->get_field_id( 'animate' ); ?>" name="<?php echo $this->get_field_name( 'animate' ); ?>" type="checkbox" value="yes" <?php if( $args['animate'] === 'yes' ) { echo 'checked="checked"'; } ?> />
 		</p>
 
 		<p>
