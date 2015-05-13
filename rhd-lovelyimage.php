@@ -122,7 +122,7 @@ class RHD_LovelyImage extends WP_Widget {
 
 		echo $before_widget;
 
-		print_r($args);
+		echo $title;
 		?>
 
 		<?php if ( $link ) echo "<a href=\"{$link}\" target=\"_blank\">\n"; ?>
