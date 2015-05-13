@@ -104,7 +104,8 @@ class RHD_LovelyImage extends WP_Widget {
 
 		extract( $args );
 
-		$caption = apply_filters('widget_title', $instance['title']);
+		$title = apply_filters('widget_title', $instance['title']);
+		$caption = esc_textarea( $instance['caption'] );
 		$link = $instance['link'];
 		$img_url = $instance['image'];
 		$animate = $instance['animate'];
