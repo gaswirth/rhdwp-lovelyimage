@@ -86,15 +86,15 @@ class RHD_LovelyImage extends WP_Widget {
 		// processes widget options to be saved
 		$instance = array();
 
-		$instance['title'] = ( $new_instance['title'] ) ? strip_tags( $new_instance['title'] ) : '';
-		$instance['caption'] = ( $new_instance['caption'] ) ? ( $new_instance['caption'] ) : '';
-		$instance['link'] = ( $new_instance['link'] ) ? esc_url_raw( $new_instance['link'] ) : '';
-		$instance['image'] = ( $new_instance['image'] ) ? esc_url_raw( $new_instance['image'] ) : '';
-		$instance['animate'] = $new_instance['animate'];
-		$instance['cap_color'] = ( $new_instance['cap_color'] ) ? strip_tags( $new_instance['cap_color'] ) : '';
-		$instance['opacity_base'] = ( $new_instance['opacity_base'] ) ? strip_tags( $instance['opacity_base'] ) : '';
-		$instance['opacity_hover'] = ( $new_instance['opacity_hover'] ) ? strip_tags( $instance['opacity_hover'] ) : '';
-		$instance['style'] = ( $new_instance['style'] ) ? strip_tags( $instance['style'] ) : '';
+		$instance['title'] = ( $new_instance['title'] != $old_instance['title'] ) ? strip_tags( $new_instance['title'] ) : $old_instance['title'];
+		$instance['caption'] = ( $new_instance['caption'] != $old_instance['caption'] ) ? ( $new_instance['caption'] ) : $old_instance['caption'];
+		$instance['link'] = ( $new_instance['link'] != $old_instance['link'] ) ? esc_url_raw( $new_instance['link'] ) : $old_instance['link'];
+		$instance['image'] = ( $new_instance['image'] != $old_instance['image'] ) ? esc_url_raw( $new_instance['image'] ) : $old_instance['image'];
+		$instance['animate'] = ( $new_instance['animate'] != $old_instance['animate'] ) ? $new_instance['animate'] : $old_instance['animate'];
+		$instance['cap_color'] = ( $new_instance['cap_color'] != $old_instance['cap_color'] ) ? strip_tags( $new_instance['cap_color'] ) : $old_instance['cap_color'];
+		$instance['opacity_base'] = ( $new_instance['opacity_base'] != $old_instance['opacity_base'] ) ? strip_tags( $instance['opacity_base'] ) : $old_instance['opacity_base'];
+		$instance['opacity_hover'] = ( $new_instance['opacity_hover'] != $old_instance['opacity_hover'] ) ? strip_tags( $instance['opacity_hover'] ) : $old_instance['opacity_hover'];
+		$instance['style'] = ( $new_instance['style'] != $old_instance['style'] ) ? strip_tags( $instance['style'] ) : $old_instance['style'];
 
 		return $instance;
 	}
@@ -104,7 +104,7 @@ class RHD_LovelyImage extends WP_Widget {
 
 		extract( $args );
 
-		$title = apply_filters('widget_title', $instance['title']);
+		$title = ( $instance['title'] ) ? apply_filters('widget_title', $instance['title']) : '';
 		$caption = esc_textarea( $instance['caption'] );
 		$link = $instance['link'];
 		$img_url = $instance['image'];
@@ -118,7 +118,7 @@ class RHD_LovelyImage extends WP_Widget {
 		$image = wp_get_attachment_image( $image_id, 'lovelyimage-' . strtolower( $style ), false, array( 'class' => "attachment-lovelyimage-{$style} rhd_lovelyimage_thumb" ) );
 
 		$caption_class = ( $style == 'landscape' || empty( $style ) ) ? 'caption-top' : 'caption-bottom';
-		$caption_data = "data-animate=\"{$animate}\" data-bg-color=\"{$cap_color}\" data-opacity-base=\"{$cap_opacity[0]}\" data-opacity-hover=\"{$cap_opacity[1]}\"";
+		$caption_atts = "data-animate=\"{$animate}\" data-bg-color=\"{$cap_color}\" data-opacity-base=\"{$cap_opacity[0]}\" data-opacity-hover=\"{$cap_opacity[1]}\"";
 
 		echo $before_widget;
 
@@ -128,7 +128,7 @@ class RHD_LovelyImage extends WP_Widget {
 		<?php if ( $link ) echo "<a href=\"{$link}\" target=\"_blank\">\n"; ?>
 		<figure class="rhd_lovelyimage_container <?php echo $style; ?>">
 			<?php if ( $caption ) : ?>
-				<figcaption class="rhd_lovelyimage_caption <?php echo $caption_class; ?>" <?php echo $caption_data; ?>><?php echo $caption; ?></figcaption>
+				<figcaption class="rhd_lovelyimage_caption <?php echo $caption_class; ?>" <?php echo $caption_atts; ?>><?php echo $caption; ?></figcaption>
 			<?php endif; ?>
 			<?php echo $image; ?>
 		</figure>
