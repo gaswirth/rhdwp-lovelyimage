@@ -151,7 +151,7 @@ class RHD_LovelyImage extends WP_Widget {
 
 		<p>
 			<label for="<?php echo $this->get_field_id( 'animate' ); ?>"><?php _e( 'Animate on hover?' ); ?></label>
-			<input id="<?php echo $this->get_field_id( 'animate' ); ?>" name="<?php echo $this->get_field_name( 'animate' ); ?>" type="checkbox" value="yes" <?php if( $args['animate'] === 'yes' ) { echo 'checked="checked"'; } ?> />
+			<input id="<?php echo $this->get_field_id( 'animate' ); ?>" name="<?php echo $this->get_field_name( 'animate' ); ?>" type="checkbox" <?php checked( $instance['animate'], true ); ?> />
 		</p>
 
 		<p>
@@ -170,10 +170,10 @@ class RHD_LovelyImage extends WP_Widget {
 		<h3><?php _e( 'Display Options:' ); ?></h3>
 		<p>
 			<p><?php _e( 'Image Style:' ); ?></p>
-			<input id="<?php echo $this->get_field_id( 'style_landscape' ); ?>" class="rhd_li_style_landscape" name="<?php echo $this->get_field_name( 'style' ); ?>" type="radio" value="rhd_lovely_style_landscape" <?php if( $args['style'] != 'rhd_lovely_style_square' || empty( $args['style'] ) ){ echo 'checked="checked"'; } ?> />
+			<input id="<?php echo $this->get_field_id( 'style_landscape' ); ?>" class="rhd_li_style_landscape" name="<?php echo $this->get_field_name( 'style' ); ?>" type="radio" value="rhd_lovely_style_landscape" <?php checked( $instance['style'], true ); ?> ?> />
 			<label for="<?php echo $this->get_field_id( 'style_landscape' ); ?>"><?php _e( 'Landscape (Caption: top)' ); ?></label>
 			<br />
-			<input id="<?php echo $this->get_field_id( 'style_square' ); ?>" class="rhd_li_style_square" name="<?php echo $this->get_field_name( 'style' ); ?>" type="radio" value="rhd_lovely_style_square" <?php if( $args['style'] == 'rhd_lovely_style_square' ){ echo 'checked="checked"'; } ?> />
+			<input id="<?php echo $this->get_field_id( 'style_square' ); ?>" class="rhd_li_style_square" name="<?php echo $this->get_field_name( 'style' ); ?>" type="radio" value="rhd_lovely_style_square" <?php checked( $instance['style'], true ); ?> />
 			<label for="<?php echo $this->get_field_id( 'style_square' ); ?>"><?php _e( 'Square (Caption: bottom)'); ?></label>
 		</p>
 		<p>
