@@ -84,19 +84,7 @@ class RHD_LovelyImage extends WP_Widget {
 
 	public function update( $new_instance, $old_instance ) {
 		// processes widget options to be saved
-		$instance = array();
-
-		$instance['title'] = ( $new_instance['title'] != $old_instance['title'] ) ? strip_tags( $new_instance['title'] ) : $old_instance['title'];
-		$instance['caption'] = ( $new_instance['caption'] != $old_instance['caption'] ) ? ( $new_instance['caption'] ) : $old_instance['caption'];
-		$instance['link'] = ( $new_instance['link'] != $old_instance['link'] ) ? esc_url_raw( $new_instance['link'] ) : $old_instance['link'];
-		$instance['image'] = ( $new_instance['image'] != $old_instance['image'] ) ? esc_url_raw( $new_instance['image'] ) : $old_instance['image'];
-		$instance['animate'] = ( $new_instance['animate'] != $old_instance['animate'] ) ? $new_instance['animate'] : $old_instance['animate'];
-		$instance['cap_color'] = ( $new_instance['cap_color'] != $old_instance['cap_color'] ) ? strip_tags( $new_instance['cap_color'] ) : $old_instance['cap_color'];
-		$instance['opacity_base'] = ( $new_instance['opacity_base'] != $old_instance['opacity_base'] ) ? strip_tags( $instance['opacity_base'] ) : $old_instance['opacity_base'];
-		$instance['opacity_hover'] = ( $new_instance['opacity_hover'] != $old_instance['opacity_hover'] ) ? strip_tags( $instance['opacity_hover'] ) : $old_instance['opacity_hover'];
-		$instance['style'] = ( $new_instance['style'] != $old_instance['style'] ) ? strip_tags( $instance['style'] ) : $old_instance['style'];
-
-		return $instance;
+		return $new_instance;
 	}
 
 	public function widget( $args, $instance ) {
