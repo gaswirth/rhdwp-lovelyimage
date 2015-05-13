@@ -4,7 +4,7 @@
  * Description: A simple image widget with CSS-stylable captions and optional image linkage.
  * Author: Roundhouse Designs
  * Author URI: http://roundhouse-designs.com
- * Version: 1.0.1
+ * Version: 1.1
 **/
 
 
@@ -84,10 +84,12 @@ class RHD_LovelyImage extends WP_Widget {
 
 	public function update( $new_instance, $old_instance ) {
 		// processes widget options to be saved
+		$instance = $old_instance;
+
 		$instance['title'] = ( $new_instance['title'] ) ? strip_tags( $new_instance['title'] ) : '';
-		$instance['caption'] = ( $new_instance['caption'] ) ? $new_instance['caption'] : '';
-		$instance['link'] = ( $new_instance['link'] ) ? esc_url_raw( $new_instance['link'] ) : '';
-		$instance['image'] = ( $new_instance['image'] ) ? esc_url_raw( $new_instance['image'] ) : '';
+		$instance['caption'] = $new_instance['caption'];
+		$instance['link'] = ( $new_instance['link'] ) ? strip_tags( $new_instance['link'] ) : '';
+		$instance['image'] = ( $new_instance['image'] ) ? strip_tags( $new_instance['image'] ) : '';
 		$instance['animate'] = $new_instance['animate'];
 		$instance['cap_color'] = ( $new_instance['cap_color'] ) ? strip_tags( $new_instance['cap_color'] ) : '';
 		$instance['opacity_base'] = ( $new_instance['opacity_base'] ) ? strip_tags( $new_instance['opacity_base'] ) : '';
@@ -104,8 +106,8 @@ class RHD_LovelyImage extends WP_Widget {
 
 		$title = ( $instance['title'] ) ? apply_filters('widget_title', $instance['title']) : '';
 		$caption = esc_textarea( $instance['caption'] );
-		$link = $instance['link'];
-		$img_url = $instance['image'];
+		$link = esc_url_raw( $instance['link'] );
+		$img_url = esc_url_raw( $instance['image'] );
 		$animate = $instance['animate'];
 		$cap_color = ( $instance['cap_color'] !== '' ) ? $instance['cap_color'] : '#fff';
 		$cap_opacity[0] = ( $instance['opacity_base'] ) ? $instance['opacity_base'] : 0.6;
@@ -156,7 +158,7 @@ class RHD_LovelyImage extends WP_Widget {
 		<h3><?php _e( 'Caption Options:' ); ?></h3>
 		<p>
 			<label for="<?php echo $this->get_field_id( 'caption' ); ?>"><?php _e( 'Caption <em>(Optional)</em>:' ); ?></label>
-			<textarea id="<?php echo $this->get_field_id( 'caption' ); ?>" name="<?php echo $this->get_field_name( 'caption' ); ?>" value="<?php echo $args['caption']; ?>" ></textarea>
+			<textarea id="<?php echo $this->get_field_id( 'caption' ); ?>" name="<?php echo $this->get_field_name( 'caption' ); ?>"><?php echo $args['caption']; ?></textarea>
 		</p>
 
 		<p>
