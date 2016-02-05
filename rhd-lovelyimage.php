@@ -139,15 +139,15 @@ class RHD_LovelyImage extends WP_Widget {
 
 	public function form( $instance ) {
 		// outputs the options form on admin
-		$args['title'] = esc_attr( $instance['title'] );
-		$args['caption'] = esc_textarea( $instance['caption'] );
-		$args['link'] = esc_url( $instance['link'] );
-		$args['image'] = esc_url( $instance['image'] );
-		$args['animate'] = $instance['animate'];
-		$args['cap_color'] = esc_attr( $instance['cap_color'] );
-		$args['opacity_base'] = esc_attr( $instance['opacity_base'] );
-		$args['opacity_hover'] = esc_attr( $instance['opacity_hover'] );
-		$args['style'] = $instance['style'];
+		$args['title'] = $instance['title'] ? esc_attr( $instance['title'] ) : '';
+		$args['caption'] = $instance['caption'] ? esc_textarea( $instance['caption'] ) : '';
+		$args['link'] = $instance['link'] ? esc_url( $instance['link'] ) : '';
+		$args['image'] = $instance['image'] ? esc_url( $instance['image'] ) : '';
+		$args['animate'] = $instance['animate'] ? esc_attr( $instance['animate'] ) : '';
+		$args['cap_color'] = $instance['cap_color'] ? esc_attr( $instance['cap_color'] ) : '';
+		$args['opacity_base'] = $instance['opacity_base'] ? esc_attr( $instance['opacity_base'] ) : '';
+		$args['opacity_hover'] = $instance['opacity_hover'] ? esc_attr( $instance['opacity_hover'] ) : '';
+		$args['style'] = $instance['style'] ? esc_attr( $instance['style'] ) : '';
 	?>
 
 		<p>
